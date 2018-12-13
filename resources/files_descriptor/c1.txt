@@ -1,0 +1,3 @@
+SID:001
+FRQ:10
+LNK:./resources/sensors/sensor001.txt
