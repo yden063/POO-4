@@ -74,7 +74,7 @@ public class Server implements Runnable {
 
 				pw.write(response);
 				pw.flush();
-				
+
 				pw.close();
 				os.close();
 			}
@@ -86,19 +86,25 @@ public class Server implements Runnable {
 	}
 
 	private String getResponse(String request) {
-		String requestedService = request.split(":")[1];
+		String response = "";
 
-		switch (requestedService) {
-		case "S1":
-			service = new Service1(this.filters, request);
-			break;
-		case "S2":
-			service = new Service2(this.filters);
-			break;
-		default:
-			break;
+		if (!request.isEmpty()) {
+			String requestedService = request.split(":")[1];
+
+			switch (requestedService) {
+			case "S1":
+				service = new Service1(this.filters, request);
+				break;
+			case "S2":
+				service = new Service2(this.filters);
+				break;
+			default:
+				break;
+			}
+
+			response = service.execute();
 		}
 
-		return service.execute();
+		return response;
 	}
 }

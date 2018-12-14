@@ -20,7 +20,13 @@ public class Service1 extends ServiceAbstract {
 	@Override
 	public String execute() {
 		String requestedSID = request.split(":")[2];
-		String response = this.filter.get(requestedSID).getQueue().toString();
+		AbstractFilter filter = this.filter.get(requestedSID);
+		String response = "";
+
+		if (filter != null)
+			response = this.filter.get(requestedSID).getQueue().toString();
+		else
+			response = "This sensor doesn't exist!";
 
 		return response;
 	}

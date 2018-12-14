@@ -18,10 +18,10 @@ public class Service2 extends ServiceAbstract {
 	@Override
 	public String execute() {
 		String response = "";
-
+		
 		for (Entry<String, AbstractFilter> element : this.filter.entrySet()) {
-			response += element.getKey() + " " + element.getValue().getQueue();
-			response += "\n";
+			response += element.getKey() + " => " + element.getValue().getQueue();
+			response += " ; ";
 		}
 
 		return response;
