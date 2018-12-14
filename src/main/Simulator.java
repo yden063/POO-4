@@ -1,3 +1,5 @@
+package main;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -76,10 +78,14 @@ public class Simulator extends Thread {
 					// Add object to the list
 					adapteurs.add(adapteur);
 
+					// Create and apply filter
 					AbstractFilter filter = new BaseFilter(adapteur.getQueue());
+
+					// Comment or decomment the lines below
+					// to apply a filter
 					filter = new FilterOptionF1(filter);
-					filter = new FilterOptionF2(filter);
-					filter = new FilterOptionF3(filter);
+					//filter = new FilterOptionF2(filter);
+					filter = new FilterOptionF3(filter); // To only have the real time state (the last)
 
 					filters.put(adapteur.getSID(), filter);
 

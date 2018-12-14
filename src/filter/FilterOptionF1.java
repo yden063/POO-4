@@ -22,7 +22,7 @@ public class FilterOptionF1 extends FilterOption {
 				tmpDequeue.add('N');
 			}
 		});
-
+		
 		return tmpDequeue;
 	}
 

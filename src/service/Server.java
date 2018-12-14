@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -66,19 +67,38 @@ public class Server implements Runnable {
 				BufferedReader bf = new BufferedReader(new InputStreamReader(is));
 
 				String request = bf.readLine();
-				// String requestedSID = request.split(":")[2];
+				String response = getResponse(request);
 
-				// service = new Service1(this.filters, request);
-				service = new Service2(filters);
+				os = clientSocket.getOutputStream();
+				PrintWriter pw = new PrintWriter(os);
 
-				String response = service.execute();
-				System.out.println(response.split("\n")[2]);
-
+				pw.write(response);
+				pw.flush();
+				
+				pw.close();
+				os.close();
 			}
 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
+	}
+
+	private String getResponse(String request) {
+		String requestedService = request.split(":")[1];
+
+		switch (requestedService) {
+		case "S1":
+			service = new Service1(this.filters, request);
+			break;
+		case "S2":
+			service = new Service2(this.filters);
+			break;
+		default:
+			break;
+		}
+
+		return service.execute();
 	}
 }
