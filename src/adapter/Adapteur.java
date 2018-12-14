@@ -1,4 +1,5 @@
 package adapter;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -81,11 +82,6 @@ public class Adapteur extends Thread {
 				e.printStackTrace();
 			}
 		}
-	}
-
-	public static void main(String[] args) {
-		Adapteur adapteur = new Adapteur("", 4, "./resources/sensors/sensor002.txt");
-		adapteur.start();
 	}
 
 	public Queue<Character> getQueue() {

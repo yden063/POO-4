@@ -21,6 +21,9 @@ public class Client {
 			os = socket.getOutputStream();
 			pw = new PrintWriter(os);
 
+			// GET:S1:002
+			// GET:S2
+			// GET:S3
 			pw.println("GET:S1:002");
 			pw.flush();
 

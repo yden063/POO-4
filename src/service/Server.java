@@ -21,6 +21,7 @@ public class Server implements Runnable {
 	private InputStream is;
 	private OutputStream os;
 	private Map<String, AbstractFilter> filters;
+	private Service service;
 
 	public static Server getInstance() {
 		if (server == null)
@@ -65,9 +66,13 @@ public class Server implements Runnable {
 				BufferedReader bf = new BufferedReader(new InputStreamReader(is));
 
 				String request = bf.readLine();
-				String requestedSID = request.split(":")[2];
+				// String requestedSID = request.split(":")[2];
 
-				System.out.println(this.filters.get(requestedSID).getQueue());
+				// service = new Service1(this.filters, request);
+				service = new Service2(filters);
+
+				String response = service.execute();
+				System.out.println(response.split("\n")[2]);
 
 			}
 

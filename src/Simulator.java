@@ -24,8 +24,8 @@ public class Simulator extends Thread {
 	private List<File> listFiles;
 	private static Map<String, AbstractFilter> filters;
 
-	public Simulator(int frequence, String folderPath) {
-		this.frequency = frequence;
+	public Simulator(int frequency, String folderPath) {
+		this.frequency = frequency;
 		this.folderPath = folderPath;
 
 		this.listFiles = new ArrayList<File>();
@@ -94,7 +94,7 @@ public class Simulator extends Thread {
 
 			// Every frequency time it will execute
 			try {
-				Thread.sleep(this.frequency * 1000);
+				Thread.sleep(frequency);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -117,7 +117,6 @@ public class Simulator extends Thread {
 
 	public static void main(String[] args) {
 		Simulator simulator = new Simulator(2, "./resources/files_descriptor");
-
 		simulator.start();
 
 		Server server = Server.getInstance();
