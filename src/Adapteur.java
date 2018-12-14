@@ -3,18 +3,23 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
+import java.util.ArrayDeque;
+import java.util.Queue;
 
 public class Adapteur extends Thread {
 	private String SID;
 	private int FRQ;
 	private String pathToSensor;
 	private boolean occupied;
+	private Queue<Character> queue;
 
 	public Adapteur(String SID, int FRQ, String pathToSensor) {
 		this.SID = SID;
 		this.FRQ = FRQ;
 		this.pathToSensor = pathToSensor;
 		this.occupied = false;
+
+		queue = new ArrayDeque<Character>();
 	}
 
 	public boolean isOccupied() {
@@ -52,10 +57,14 @@ public class Adapteur extends Thread {
 				bf.close();
 				fis.close();
 
-				if (value == 1)
+				if (value == 1) {
 					setOccupied(true);
-				else
+					queue.add('1');
+				} else {
 					setOccupied(false);
+					queue.add('0');
+				}
+
 			} catch (FileNotFoundException e1) {
 				System.out.println("Sensor not found! : " + this.pathToSensor);
 				break;
@@ -64,6 +73,7 @@ public class Adapteur extends Thread {
 			}
 
 			System.out.println("SID : " + this.SID + " occupied : " + this.occupied);
+
 			try {
 				Thread.sleep(this.FRQ * 1000);
 			} catch (InterruptedException e) {
@@ -75,6 +85,10 @@ public class Adapteur extends Thread {
 	public static void main(String[] args) {
 		Adapteur adapteur = new Adapteur("", 4, "./resources/sensors/sensor002.txt");
 		adapteur.start();
+	}
+
+	public Queue<Character> getQueue() {
+		return queue;
 	}
 
 }

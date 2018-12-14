@@ -5,13 +5,16 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Simulator extends Thread {
 	private List<Adapteur> adapteurs;
 	private int frequency;
 	private String folderPath;
 	private List<File> listFiles;
+	private static Map<String, AbstractFilter> filters;
 
 	public Simulator(int frequence, String folderPath) {
 		this.frequency = frequence;
@@ -19,6 +22,7 @@ public class Simulator extends Thread {
 
 		this.listFiles = new ArrayList<File>();
 		this.adapteurs = new ArrayList<Adapteur>();
+		this.filters = new HashMap<String, AbstractFilter>();
 	}
 
 	public List<Adapteur> getAdapteurs() {
@@ -37,6 +41,7 @@ public class Simulator extends Thread {
 			listFiles.addAll(newFiles);
 
 			// Extract data from the files
+
 			newFiles.forEach(file -> {
 				FileInputStream fis;
 				try {
@@ -59,10 +64,16 @@ public class Simulator extends Thread {
 					System.out.println("Adapter creation " + sid);
 					Adapteur adapteur = new Adapteur(sid, frq, pathToSensor);
 					adapteur.start();
-					
 
 					// Add object to the list
 					adapteurs.add(adapteur);
+
+					AbstractFilter filter = new BaseFilter(adapteur.getQueue());
+					filter = new FilterOptionF1(filter);
+					filter = new FilterOptionF2(filter);
+					filter = new FilterOptionF3(filter);
+
+					filters.put(adapteur.getSID(), filter);
 
 					bf.close();
 					fis.close();
@@ -98,7 +109,13 @@ public class Simulator extends Thread {
 
 	public static void main(String[] args) {
 		Simulator simulator = new Simulator(2, "./resources/files_descriptor");
+
 		simulator.start();
+
+		Server server = Server.getInstance();
+		server.setFilters(filters);
+
+		new Thread(server).start();
 	}
 
 }
