@@ -1,3 +1,4 @@
+package filter;
 import java.util.ArrayDeque;
 import java.util.Queue;
 
@@ -8,7 +9,7 @@ public class FilterOptionF1 extends FilterOption {
 	}
 
 	@Override
-	protected Queue<Character> getQueue() {
+	public Queue<Character> getQueue() {
 		Queue<Character> queueCopy = new ArrayDeque<Character>();
 		queueCopy.addAll(filter.getQueue());
 

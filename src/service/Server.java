@@ -1,3 +1,5 @@
+package service;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -8,6 +10,8 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import filter.AbstractFilter;
 
 public class Server implements Runnable {
 	private ServerSocket serverSocket;
@@ -61,7 +65,7 @@ public class Server implements Runnable {
 				BufferedReader bf = new BufferedReader(new InputStreamReader(is));
 
 				String request = bf.readLine();
-				String requestedSID = request.split(":")[1];
+				String requestedSID = request.split(":")[2];
 
 				System.out.println(this.filters.get(requestedSID).getQueue());
 

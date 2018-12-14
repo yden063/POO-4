@@ -1,3 +1,4 @@
+package filter;
 public abstract class FilterOption extends AbstractFilter {
 	
 	protected AbstractFilter filter;

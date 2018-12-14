@@ -1,3 +1,4 @@
+package filter;
 import java.util.Queue;
 
 public class BaseFilter extends AbstractFilter {
@@ -7,7 +8,7 @@ public class BaseFilter extends AbstractFilter {
 	}
 
 	@Override
-	protected Queue<Character> getQueue() {
+	public Queue<Character> getQueue() {
 		return this.queue;
 	}
 

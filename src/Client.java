@@ -21,7 +21,7 @@ public class Client {
 			os = socket.getOutputStream();
 			pw = new PrintWriter(os);
 
-			pw.println("GET:002");
+			pw.println("GET:S1:002");
 			pw.flush();
 
 		} catch (IOException e) {

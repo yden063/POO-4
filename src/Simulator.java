@@ -9,6 +9,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import adapter.Adapteur;
+import filter.AbstractFilter;
+import filter.BaseFilter;
+import filter.FilterOptionF1;
+import filter.FilterOptionF2;
+import filter.FilterOptionF3;
+import service.Server;
+
 public class Simulator extends Thread {
 	private List<Adapteur> adapteurs;
 	private int frequency;
@@ -22,7 +30,7 @@ public class Simulator extends Thread {
 
 		this.listFiles = new ArrayList<File>();
 		this.adapteurs = new ArrayList<Adapteur>();
-		this.filters = new HashMap<String, AbstractFilter>();
+		Simulator.filters = new HashMap<String, AbstractFilter>();
 	}
 
 	public List<Adapteur> getAdapteurs() {

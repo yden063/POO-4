@@ -1,3 +1,4 @@
+package filter;
 import java.util.Queue;
 
 public abstract class AbstractFilter {
@@ -8,5 +9,5 @@ public abstract class AbstractFilter {
 		this.queue = queue;
 	}
 	
-	protected abstract Queue<Character> getQueue();
+	public abstract Queue<Character> getQueue();
 }
